@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import Proj.Spring.AppCoVacc19.Entity.Administrateur;
+import Proj.Spring.AppCoVacc19.Exception.EmptyInputException;
 import Proj.Spring.AppCoVacc19.Repository.AdminRepository;
 
 @Service
@@ -25,6 +26,9 @@ public class AdminService {
 	
 	//ADD
 	public void AddAdmin(Administrateur admin) {
+		/*if(admin.getNom_A().isEmpty() ||admin.getPrenom_A().isEmpty() ||admin.getAdresse_A().isEmpty() ) {
+			throw new EmptyInputException("601");
+		}*/
 		AdminRepository.save(admin);
 	}
 
