@@ -42,9 +42,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
 	public ResponseEntity<String> handleEmptyInputException(EmptyInputException e) {
 		return new ResponseEntity<String>("Input field is empty",HttpStatus.BAD_REQUEST);
 	}
+	
 	@Override
 	protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException e, HttpHeaders headers, HttpStatus s, WebRequest r){
-		return new ResponseEntity<Object>("Change the Http method type !!",HttpStatus.NOT_FOUND);
+		return new ResponseEntity<Object>("Change the Http method type !!",HttpStatus.CONFLICT);
 		
 	}
 }
