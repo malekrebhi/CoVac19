@@ -6,9 +6,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import Proj.Spring.AppCoVacc19.Entity.Administrateur;
 import Proj.Spring.AppCoVacc19.Exception.EmptyInputException;
+import Proj.Spring.AppCoVacc19.Exception.NoArgumentsFoundException;
+import Proj.Spring.AppCoVacc19.Exception.AdminNotFoundException;
 import Proj.Spring.AppCoVacc19.Repository.AdminRepository;
 
 @Service
@@ -21,14 +22,17 @@ public class AdminService {
 	public List<Administrateur> SelectAdmin(){
 		List<Administrateur> admins=new ArrayList<>();
 		AdminRepository.findAll().forEach(admins::add);
+		if (admins.isEmpty()) {
+			throw new NoArgumentsFoundException("600");
+		}
+			
 		return admins;
 	}
 	
 	//ADD
 	public void AddAdmin(Administrateur admin) {
-		/*if(admin.getNom_A().isEmpty() ||admin.getPrenom_A().isEmpty() ||admin.getAdresse_A().isEmpty() ) {
-			throw new EmptyInputException("601");
-		}*/
+		if(admin.getNom_A().isEmpty() ||admin.getPrenom_A().isEmpty() ||admin.getAdresse_A().isEmpty() ) {
+			throw new EmptyInputException("601");}
 		AdminRepository.save(admin);
 	}
 
@@ -47,8 +51,10 @@ public class AdminService {
 
 	//DELETE
 	public void DeleteAdmin(int id) {
+		if (AdminRepository.findById(id) == null) {
+			throw new AdminNotFoundException("602");
+		}
 		AdminRepository.deleteById(id);		
-		System.out.println("Admin removed "+id);
 	}
 	
 	

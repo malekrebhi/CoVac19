@@ -1,6 +1,7 @@
 package Proj.Spring.AppCoVacc19.Controller;
 
 import Proj.Spring.AppCoVacc19.Entity.Centre_Vaccination;
+import Proj.Spring.AppCoVacc19.Exception.NoArgumentsFoundException;
 import Proj.Spring.AppCoVacc19.Service.CentreVaccService;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class CentreVaccController {
 
 	//SELECT
 	@GetMapping("/Centre/Select")
-	public List<Centre_Vaccination> SelectCentre(){
+	public List<Centre_Vaccination> SelectCentre() throws NoArgumentsFoundException{
 		return CentreVaccService.SelectCentre();
 		
 	}

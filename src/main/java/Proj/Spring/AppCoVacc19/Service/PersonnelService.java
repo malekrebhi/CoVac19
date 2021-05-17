@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import Proj.Spring.AppCoVacc19.Entity.Personnel;
+import Proj.Spring.AppCoVacc19.Exception.EmptyInputException;
+import Proj.Spring.AppCoVacc19.Exception.NoArgumentsFoundException;
+import Proj.Spring.AppCoVacc19.Exception.PersonnelNotFoundException;
 import Proj.Spring.AppCoVacc19.Repository.PersonnelRepository;
 
 @Service
@@ -17,14 +20,19 @@ public class PersonnelService {
 	private PersonnelRepository PersonnelRepository;
 	
 	//SELECT
-	public List<Personnel> SelectPersonnel(){
+	public List<Personnel> SelectPersonnel() throws NoArgumentsFoundException{
 		List<Personnel> personnels=new ArrayList<>();
 		PersonnelRepository.findAll().forEach(personnels::add);
+		if (personnels.isEmpty()) {
+			throw new NoArgumentsFoundException("600");
+		}
 		return personnels;
 	}
 
 	//ADD
 	public void AddPersonnel(Personnel personnel) {
+		if(personnel.getAdresse_P().isEmpty() || personnel.getCentre().equals(null) || personnel.getDateNaiss_P().equals(null) || personnel.getNom_P().isEmpty() || personnel.getPrenom_P().isEmpty()) {
+			throw new EmptyInputException("601");}
 		PersonnelRepository.save(personnel);
 	}
 
@@ -44,8 +52,9 @@ public class PersonnelService {
 
 	//DELETE
 	public void DeletePersonnel(int id) {
+		if (PersonnelRepository.findById(id) == null) {
+			throw new PersonnelNotFoundException("602");
+		}
 		PersonnelRepository.deleteById(id);		
-		System.out.println("Personnel removed "+id);
-
 	}
 }

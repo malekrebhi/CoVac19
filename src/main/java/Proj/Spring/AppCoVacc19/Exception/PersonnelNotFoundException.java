@@ -1,6 +1,6 @@
 package Proj.Spring.AppCoVacc19.Exception;
 
-public class PersonnelNotFoundException extends Exception{
+public class PersonnelNotFoundException extends RuntimeException{
 	/**
 	 * 
 	 */

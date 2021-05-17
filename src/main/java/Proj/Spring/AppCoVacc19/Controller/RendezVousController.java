@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import  Proj.Spring.AppCoVacc19.Entity.Rendez_vous;
+import Proj.Spring.AppCoVacc19.Exception.NoArgumentsFoundException;
 import  Proj.Spring.AppCoVacc19.Service.RendezVousService;
 
 @RestController
@@ -22,7 +23,7 @@ public class RendezVousController {
 
 	//SELECT
 	@GetMapping("/RendezVous/Select")
-	public List<Rendez_vous> SelectRendezVous(){
+	public List<Rendez_vous> SelectRendezVous() throws NoArgumentsFoundException{
 	    return RendezVousService.SelectRendezVous();
 		
 	}

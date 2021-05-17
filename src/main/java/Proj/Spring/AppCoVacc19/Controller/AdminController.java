@@ -2,7 +2,6 @@ package Proj.Spring.AppCoVacc19.Controller;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,28 +11,31 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import Proj.Spring.AppCoVacc19.Entity.Administrateur;
 import Proj.Spring.AppCoVacc19.Service.AdminService;
+import Proj.Spring.AppCoVacc19.Service.EmailSenderService;
 
 @RestController
 @RequestMapping("/Admin")
 public class AdminController {
-	
+	@Autowired
+    public EmailSenderService emailSender;
 	@Autowired
 	private AdminService AdminService;
 
 	//SELECT
 	@GetMapping("/Select")
-	public List<Administrateur> SelectAdmin(){
+	public @ResponseBody List<Administrateur> SelectAdmin(){
 		return AdminService.SelectAdmin();
 		
 	}
 	
 	//DELETE
 	@DeleteMapping( "/Delete/{id}")
-	public void DeleteAdmin(@PathVariable int id) {
+	public void DeleteAdmin(@PathVariable int id){
 		AdminService.DeleteAdmin(id);
 		System.out.println("Admin supprimé !");
 	}
@@ -42,19 +44,27 @@ public class AdminController {
 	@PutMapping("/Update")
 	public void UpdateAdmin(@RequestBody Administrateur admin) {
 		AdminService.UpdateAdmin(admin);
-		System.out.println("Admin modifié !");
+
 
 	}
 	
 	//ADD
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/Add")
-	public void AddAdmin(@RequestBody Administrateur admin) {
+	public void addAdmin(@RequestBody Administrateur admin) {
+	    
 		AdminService.AddAdmin(admin);
-		System.out.println("Admin ajouté !");
-
 	}
-
+	
+	@ResponseBody
+    @RequestMapping("/sendSimpleEmail")
+    public String sendSimpleEmail() {
+ 
+		emailSender.sendSimpleEmail("malekrebhi6@gmail.com ", "Test Simple Email", "Hello, Im testing Simple Email");
+ 
+        return "Email Sent!";
+    }
+ 
 //*
 
-}
+	}

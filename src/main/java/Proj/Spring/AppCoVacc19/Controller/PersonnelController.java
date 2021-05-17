@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import Proj.Spring.AppCoVacc19.Entity.Personnel;
+import Proj.Spring.AppCoVacc19.Exception.NoArgumentsFoundException;
 import Proj.Spring.AppCoVacc19.Service.PersonnelService;
 
 @RestController
@@ -21,7 +22,7 @@ public class PersonnelController {
 
 	//SELECT
 	@GetMapping("/Personnel/Select")
-	public List<Personnel> SelectPersonnel(){
+	public List<Personnel> SelectPersonnel() throws NoArgumentsFoundException{
 		return PersonnelService.SelectPersonnel();
 		
 	}

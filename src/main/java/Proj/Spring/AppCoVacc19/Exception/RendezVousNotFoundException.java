@@ -1,6 +1,6 @@
 package Proj.Spring.AppCoVacc19.Exception;
 
-public class RendezVousNotFoundException extends Exception{
+public class RendezVousNotFoundException extends RuntimeException{
 	/**
 	 * 
 	 */

@@ -16,7 +16,7 @@ import javax.persistence.Table;
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		@Column(name = "idCentre" , unique=true)
-		private int idCentre;
+		private Integer idCentre;
 		@Column(name = "nomCentre")
 		private String nomCentre;
 		@Column(name = "adresseCentre")
@@ -27,10 +27,10 @@ import javax.persistence.Table;
 		private int stockVacc;
 		@OneToOne
 		private Administrateur admin;
-		public Centre_Vaccination(String nomCentre, String adresseCentre, int nbPersonnel, int stockVacc,
+		public Centre_Vaccination(Integer idCentre, String nomCentre, String adresseCentre, int nbPersonnel, int stockVacc,
 				Administrateur admin) {
 			super();
-			//this.idCentre = idCentre;
+			this.idCentre = idCentre;
 			this.nomCentre = nomCentre;
 			this.adresseCentre = adresseCentre;
 			this.nbPersonnel = nbPersonnel;
@@ -40,10 +40,10 @@ import javax.persistence.Table;
 		public Centre_Vaccination() {
 			super();
 		}
-		public int getIdCentre() {
+		public Integer getIdCentre() {
 			return idCentre;
 		}
-		public void setIdCentre(int idCentre) {
+		public void setIdCentre(Integer idCentre) {
 			this.idCentre = idCentre;
 		}
 		public String getNomCentre() {

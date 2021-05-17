@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import Proj.Spring.AppCoVacc19.Entity.Rendez_vous;
+import Proj.Spring.AppCoVacc19.Exception.NoArgumentsFoundException;
+import Proj.Spring.AppCoVacc19.Exception.RendezVousNotFoundException;
 import Proj.Spring.AppCoVacc19.Repository.RendezVousRepository;
 
 @Service
@@ -20,6 +22,9 @@ public class RendezVousService {
 	public List<Rendez_vous> SelectRendezVous(){
 		List<Rendez_vous> rdvs=new ArrayList<>();
 		RendezVousRepository.findAll().forEach(rdvs::add);
+		if (rdvs.isEmpty()) {
+			throw new NoArgumentsFoundException("600");
+		}
 		return rdvs;
 	}
 
@@ -40,9 +45,11 @@ public class RendezVousService {
 
 
 	//DELETE
-	public void DeleteRDV(int id) {
+	public void DeleteRDV(int id){
+		if (RendezVousRepository.findById(id) == null) {
+			throw new RendezVousNotFoundException("602");
+		}
 		RendezVousRepository.deleteById(id);		
-		System.out.println("RDV removed "+id);
 
 	}
 
